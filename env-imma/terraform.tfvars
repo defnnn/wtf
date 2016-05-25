@@ -1,3 +1,3 @@
-provider_region = "us-east-1"
+provider_region = "us-west-1"
 
 vpc_name = "development"
