@@ -11,3 +11,13 @@ resource "aws_vpc" "vpc" {
     "Provisioner" = "tf"
   }
 }
+
+resource "aws_internet_gateway" "igw" {
+  vpc_id = "${aws_vpc.vpc.id}"
+
+  tags {
+    "Name" = "${var.vpc_name}"
+    "Vpc" = "${var.vpc_name}"
+    "Provisioner" = "tf"
+  }
+}
