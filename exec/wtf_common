@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+function tf {
+  local nm_env="$1"; shift
+  local nm_cmd="$1"; shift
+
+  local opt_tf_vars=
+  
+  if [[ -f "terraform.tfvars" ]]; then
+    opt_tf_vars="-var-file=terraform.tfvars"
+  fi
+
+	exec terraform "$nm_cmd" \
+		-detailed-exitcode \
+    -state="${nm_env}.tfstate" -backup="${nm_env}.tfstate.backup" \
+    ${opt_tf_vars} -var-file="${nm_env}.tfvars" "$@"
+}
+

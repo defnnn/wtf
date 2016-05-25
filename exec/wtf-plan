@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+function main {
+  local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
+  source "$shome/script/profile"
+  source "wtf_common"
+
+  local nm_env="${CONTEXT_ACCOUNT}"
+
+  tf "$nm_env" plan "$@"
+}
+
+source sub "$BASH_SOURCE" "$@"
