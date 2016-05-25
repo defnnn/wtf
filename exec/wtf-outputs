@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+function main {
+  local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
+  source "$shome/script/profile"
+  source "wtf_common"
+
+  local nm_env="${CONTEXT_ACCOUNT}"
+
+  jq -r '.modules[] | (reduce .path[] as $p (""; . + "/" + $p)) as $path | .outputs | to_entries[] | "\($path) \(.key) \(.value)"' < "_${nm_env}/${nm_env}.tfstate"
+}
+
+source sub "$BASH_SOURCE" "$@"
