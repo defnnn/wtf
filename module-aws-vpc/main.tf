@@ -40,3 +40,15 @@ resource "aws_subnet" "nat" {
   }
 }
 
+resource "aws_eip" "nat" {
+  vpc = true
+
+  count = "${var.az_count}"
+}
+
+resource "aws_nat_gateway" "nat" {
+  count = "${var.az_count}"
+
+  subnet_id = "${element(aws_subnet.nat.*.id, count.index)}"
+  allocation_id = "${element(aws_eip.nat.*.id, count.index)}"
+}
