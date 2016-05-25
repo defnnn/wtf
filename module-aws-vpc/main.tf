@@ -22,33 +22,14 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-resource "aws_subnet" "nat" {
+module "per_az" {
+  source = "../module-aws-per_az"
+
+  provider_region = "${var.provider_region}"
   vpc_id = "${aws_vpc.vpc.id}"
 
-  count = "${var.az_count}"
-  availability_zone = "${element(split(" ",var.az_names), count.index)}"
+  az_count = "${var.az_count}"
+  az_names = "${var.az_names}"
 
-	cidr_block = "${element(split(" ", var.nat_cidrs), count.index)}"
-
-  lifecycle {
-    create_before_destroy = false
-  }
-
-  tags {
-    "Name" = "nat-${element(split(" ", var.az_names), count.index)}"
-    "Provisioner" = "tf"
-  }
-}
-
-resource "aws_eip" "nat" {
-  vpc = true
-
-  count = "${var.az_count}"
-}
-
-resource "aws_nat_gateway" "nat" {
-  count = "${var.az_count}"
-
-  subnet_id = "${element(aws_subnet.nat.*.id, count.index)}"
-  allocation_id = "${element(aws_eip.nat.*.id, count.index)}"
+  nat_cidrs = "${var.nat_cidrs}"
 }
