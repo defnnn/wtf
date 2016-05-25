@@ -7,7 +7,7 @@ function main {
 
   local nm_env="${CONTEXT_ACCOUNT}"
 
-  tf "$nm_env" plan "$@"
+  tf "$nm_env" plan -detailed-exitcode "$@"
 }
 
 source sub "$BASH_SOURCE" "$@"

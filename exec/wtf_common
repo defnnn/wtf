@@ -11,7 +11,6 @@ function tf {
   fi
 
 	exec terraform "$nm_cmd" \
-		-detailed-exitcode \
     -state="${nm_env}.tfstate" -backup="${nm_env}.tfstate.backup" \
     ${opt_tf_vars} -var-file="${nm_env}.tfvars" "$@"
 }
