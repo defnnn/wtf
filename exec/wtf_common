@@ -10,8 +10,11 @@ function tf {
     opt_tf_vars="-var-file=terraform.tfvars"
   fi
 
-	exec terraform "$nm_cmd" \
-    -state="${nm_env}.tfstate" -backup="${nm_env}.tfstate.backup" \
-    ${opt_tf_vars} -var-file="${nm_env}.tfvars" "$@"
+  mkdir -p "_${nm_env}"
+	exec terraform "$nm_cmd" ${opt_tf_vars} \
+    -var-file="_${nm_env}/${nm_env}.tfvars" \
+    -state="_${nm_env}/${nm_env}.tfstate" \
+    -backup="_${nm_env}/${nm_env}.tfstate.backup" \
+    "$@"
 }
 
