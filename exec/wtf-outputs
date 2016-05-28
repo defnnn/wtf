@@ -7,7 +7,8 @@ function main {
 
   local nm_env="${CONTEXT_ACCOUNT}"
 
-  jq -r '.modules[] | (reduce .path[] as $p (""; . + "/" + $p)) as $path | .outputs | to_entries[] | "\($path) \(.key) \(.value)"' < "_${nm_env}/${nm_env}.tfstate"
+  cd "_${nm_env}"
+  jq -r '.modules[] | (reduce .path[] as $p (""; . + "/" + $p)) as $path | .outputs | to_entries[] | "\($path) \(.key) \(.value)"' < "terraform.tfstate"
 }
 
 source sub "$BASH_SOURCE" "$@"
