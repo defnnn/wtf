@@ -4,17 +4,13 @@ function tf {
   local nm_env="$1"; shift
   local nm_cmd="$1"; shift
 
-  local opt_tf_vars=
-  
-  if [[ -f "terraform.tfvars" ]]; then
-    opt_tf_vars="-var-file=terraform.tfvars"
-  fi
+  local opt_tf_vars="-var-file=terraform.tfvars"
 
   mkdir -p "_${nm_env}"
 	exec terraform "$nm_cmd" ${opt_tf_vars} \
-    -var-file="_${nm_env}/${nm_env}.tfvars" \
-    -state="_${nm_env}/${nm_env}.tfstate" \
-    -backup="_${nm_env}/${nm_env}.tfstate.backup" \
+    -var-file="_${nm_env}/terraform.tfvars" \
+       -state="_${nm_env}/terraform.tfstate" \
+      -backup="_${nm_env}/terraform.tfstate.backup" \
     "$@"
 }
 
