@@ -5,9 +5,7 @@ function main {
   source "$shome/script/profile"
   source "wtf_common"
 
-  local nm_env="${CONTEXT_ACCOUNT}"
-
-  tf "$nm_env" plan -detailed-exitcode "$@"
+  tf plan -detailed-exitcode "$@"
 }
 
 source sub "$BASH_SOURCE" "$@"

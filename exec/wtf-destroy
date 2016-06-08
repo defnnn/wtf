@@ -5,9 +5,7 @@ function main {
   source "$shome/script/profile"
   source "wtf_common"
 
-  local nm_env="${CONTEXT_ACCOUNT}"
-
-  tf "$nm_env" destroy "$@"
+  tf destroy "$@"
 }
 
 source sub "$BASH_SOURCE" "$@"

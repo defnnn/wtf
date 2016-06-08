@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
+local nm_env="${CONTEXT_ORG}-${CONTEXT_ACCOUNT}"
+
 function tf {
-  local nm_env="$1"; shift
   local nm_cmd="$1"; shift
 
   local opt_tf_vars="-var-file=terraform.tfvars"
