@@ -9,7 +9,7 @@ function tf {
 
   mkdir -p "_${CONTEXT_ENV}"
 	exec terraform "$nm_cmd" ${opt_tf_vars} \
-    -var "vpc-name=${CONTEXT_ORG}-${CONTEXT_ENV}" \
+    -var "vpc_name=${CONTEXT_ORG}-${CONTEXT_ENV}" \
          -var-file="_${CONTEXT_ENV}/terraform.tfvars" \
             -state="_${CONTEXT_ENV}/terraform.tfstate" \
            -backup="_${CONTEXT_ENV}/terraform.tfstate.backup" \
