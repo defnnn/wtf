@@ -7,11 +7,11 @@ function tf {
 
   local opt_tf_vars="-var-file=terraform.tfvars"
 
-  mkdir -p "_${nm_env}"
+  mkdir -p "_${CONTEXT_ACCOUNT}"
 	exec terraform "$nm_cmd" ${opt_tf_vars} \
-    -var-file="_${nm_env}/terraform.tfvars" \
-       -state="_${nm_env}/terraform.tfstate" \
-      -backup="_${nm_env}/terraform.tfstate.backup" \
+    -var-file="_${CONTEXT_ACCOUNT}/terraform.tfvars" \
+       -state="_${CONTEXT_ACCOUNT}/terraform.tfstate" \
+      -backup="_${CONTEXT_ACCOUNT}/terraform.tfstate.backup" \
     "$@"
 }
 
