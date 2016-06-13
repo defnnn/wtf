@@ -5,8 +5,7 @@ function main {
   source "$shome/script/profile"
   source "wtf_common"
 
-  cd "_${nm_env}"
-  jq -r '.modules[] | (reduce .path[] as $p (""; . + "/" + $p)) as $path | .outputs | to_entries[] | "\($path) \(.key) \(.value)"' < "terraform.tfstate"
+  jq -r '.modules[] | (reduce .path[] as $p (""; . + "/" + $p)) as $path | .outputs | to_entries[] | "\($path) \(.key) \(.value)"' < ".terraform/terraform.tfstate"
 }
 
 source sub "$BASH_SOURCE" "$@"
