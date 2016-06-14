@@ -3,9 +3,9 @@
 function main {
   local shome="${_wtf_home:-"$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"}"
   source "$shome/script/profile"
+  source "wtf_common"
 
-  wtf get
-  wtf plan "$@"
+  tf get "$@"
 }
 
 source sub "$BASH_SOURCE" "$@"

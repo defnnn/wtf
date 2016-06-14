@@ -3,6 +3,18 @@
 local nm_env="${CONTEXT_ORG}-${CONTEXT_ENV}"
 
 function tf {
+  if [[ -z "${CONTEXT_ORG:-}" ]]; then
+    exec "$(basename "$(pwd)" | cut -d- -f2)" wtf "$@"
+  fi
+
+  if [[ -z "${CONTEXT_ENV:-}" ]]; then
+    exec "$(basename "$(pwd)" | cut -d- -f3)" wtf "$@"
+  fi
+
+  tf_inner "$@"
+}
+
+function tf_inner {
   local nm_cmd="$1"; shift
 
 	exec terraform "$nm_cmd" \
