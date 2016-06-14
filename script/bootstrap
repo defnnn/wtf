@@ -6,7 +6,7 @@ function bootstrap {
 
   block compile virtualenv
 
-  "$shome/update"
+  "$shome/script/update"
 }
 
 bootstrap
