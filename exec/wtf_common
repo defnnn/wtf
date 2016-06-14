@@ -17,10 +17,18 @@ function tf {
 function tf_inner {
   local nm_cmd="$1"; shift
 
-	exec terraform "$nm_cmd" \
-    -var "vpc_name=${CONTEXT_ORG}-${CONTEXT_ENV}" \
-    -var "context_org=${CONTEXT_ORG}" \
-    -var "context_env=${CONTEXT_ENV}" \
-    -var "bucket_remote_state=${CONTEXT_ORG}-remote-state" \
-    "$@"
+  case "$nm_cmd" in
+    get|remote)
+      terraform "$nm_cmd" "$@"
+      ;;
+
+    *)
+      terraform "$nm_cmd" \
+        -var "vpc_name=${CONTEXT_ORG}-${CONTEXT_ENV}" \
+        -var "context_org=${CONTEXT_ORG}" \
+        -var "context_env=${CONTEXT_ENV}" \
+        -var "bucket_remote_state=${CONTEXT_ORG}-remote-state" \
+        "$@"
+      ;;
+  esac
 }
