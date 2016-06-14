@@ -5,13 +5,10 @@ local nm_env="${CONTEXT_ORG}-${CONTEXT_ENV}"
 function tf {
   local nm_cmd="$1"; shift
 
-  local opt_tf_vars="-var-file=terraform.tfvars"
-
-	exec terraform "$nm_cmd" ${opt_tf_vars} \
+	exec terraform "$nm_cmd" \
     -var "vpc_name=${CONTEXT_ORG}-${CONTEXT_ENV}" \
+    -var "context_org=${CONTEXT_ORG}" \
+    -var "context_env=${CONTEXT_ENV}" \
+    -var "bucket_remote_state=${CONTEXT_ORG}-remote-state" \
     "$@"
 }
-
-#         -var-file="_${CONTEXT_ENV}/terraform.tfvars" \
-#            -state="_${CONTEXT_ENV}/terraform.tfstate" \
-#           -backup="_${CONTEXT_ENV}/terraform.tfstate.backup" \
