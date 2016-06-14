@@ -18,8 +18,20 @@ function tf_inner {
   local nm_cmd="$1"; shift
 
   case "$nm_cmd" in
-    get|remote)
-      terraform "$nm_cmd" "$@"
+    get)
+      terraform get "$@"
+      ;;
+
+    remote)
+      case "${1:-}" in
+        config)
+          shift
+          terraform remote config -backend=s3 -backend-config="bucket=${CONTEXT_ORG}-remote-state" -backend-config="key=${CONTEXT_ORG}-remote-state/env-${CONTEXT_ORG}-$(basename "$(pwd)" | cut -d- -f3-).tfstate" -backend-config="region=$(aws configure get region)"
+          ;;
+        *)
+          terraform remote "$@"
+          ;;
+      esac
       ;;
 
     *)

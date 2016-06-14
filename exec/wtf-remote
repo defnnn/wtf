@@ -5,7 +5,7 @@ function main {
   source "$shome/script/profile"
   source "wtf_common"
 
-	tf remote config -backend=s3 -backend-config="bucket=$(CONTEXT_ORG)-remote-state" -backend-config="key=$(CONTEXT_ORG)-remote-state/env-$(CONTEXT_ORG)-$(shell basename "$(shell pwd)" | cut -d- -f3-).tfstate" -backend-config="region=$(shell aws configure get region)"
+  tf remote config "$@"
 }
 
 source sub "$BASH_SOURCE" "$@"
