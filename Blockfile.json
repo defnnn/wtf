@@ -1,5 +1,6 @@
 {
   "require": [
-    "terraform"
+    "terraform",
+    "fogg"
   ]
 }
