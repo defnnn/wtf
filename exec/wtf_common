@@ -18,10 +18,6 @@ function tf_inner {
   local nm_cmd="$1"; shift
 
   case "$nm_cmd" in
-    get)
-      terraform get "$@"
-      ;;
-
     remote)
       case "${1:-}" in
         config)
@@ -34,7 +30,7 @@ function tf_inner {
       esac
       ;;
 
-    *)
+    apply|destroy|plan)
       terraform "$nm_cmd" \
         -var "vpc_name=${CONTEXT_ORG}-${CONTEXT_ENV}" \
         -var "context_org=${CONTEXT_ORG}" \
@@ -42,5 +38,10 @@ function tf_inner {
         -var "bucket_remote_state=${CONTEXT_ORG}-remote-state" \
         "$@"
       ;;
+
+    *)
+      terraform "$nm_cmd" "$@"
+      ;;
+
   esac
 }
