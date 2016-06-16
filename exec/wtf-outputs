@@ -5,7 +5,7 @@ function main {
   source "$shome/script/profile"
   source "wtf_common"
 
-  jq -r '.modules[] | (reduce .path[] as $p (""; . + "/" + $p)) as $path | .outputs | to_entries[] | "\($path) \(.key) \(.value)"' < ".terraform/terraform.tfstate"
+  jq -r '.modules[] | (reduce .path[] as $p (""; . + "/" + $p)) as $path | .outputs | to_entries[] | "\($path) \(.key) \(.value.value)"' < ".terraform/terraform.tfstate" | talign 2
 }
 
 source sub "$BASH_SOURCE" "$@"
