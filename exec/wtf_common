@@ -30,7 +30,7 @@ function tf_inner {
       esac
       ;;
 
-    apply|destroy|plan)
+    apply|destroy|plan|refresh)
       terraform "$nm_cmd" \
         -var "vpc_name=${CONTEXT_ORG}-${CONTEXT_ENV}" \
         -var "context_org=${CONTEXT_ORG}" \
