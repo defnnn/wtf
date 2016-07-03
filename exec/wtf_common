@@ -22,7 +22,11 @@ function tf_inner {
       case "${1:-}" in
         config)
           shift
-          terraform remote config -backend=s3 -backend-config="bucket=${CONTEXT_ORG}-remote-state" -backend-config="key=${CONTEXT_ORG}-remote-state/env-${CONTEXT_ORG}-$(basename "$(pwd)" | cut -d- -f3-).tfstate" -backend-config="region=$(aws configure get region)"
+          terraform remote config \
+            -backend=s3 \
+              -backend-config="bucket=${CONTEXT_ORG}-remote-state" \
+              -backend-config="key=${CONTEXT_ORG}-remote-state/env-${CONTEXT_ORG}-$(basename "$(pwd)" | cut -d- -f3-).tfstate" \
+              -backend-config="region=$(aws configure get region)"
           ;;
         *)
           terraform remote "$@"
@@ -36,6 +40,8 @@ function tf_inner {
         -var "context_org=${CONTEXT_ORG}" \
         -var "context_env=${CONTEXT_ENV}" \
         -var "bucket_remote_state=${CONTEXT_ORG}-remote-state" \
+        -var "aws_account_id=$(aws iam get-user | jq -r '.User.Arn | split(":")[4]')" \
+        -var "aws_region=$(aws configure get region)"
         "$@"
       ;;
 
