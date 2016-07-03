@@ -35,7 +35,6 @@ function tf_inner {
       ;;
 
     apply|destroy|plan|refresh)
-      set -x
       terraform "$nm_cmd" \
         -var "bucket_remote_state=${CONTEXT_ORG}-remote-state" \
         -var "aws_account_id=$(aws iam get-user | jq -r '.User.Arn | split(":")[4]')" \
