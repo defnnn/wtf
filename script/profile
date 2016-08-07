@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-function profile {
+function _wtf_profile {
   local shome="${_wtf_home:-"$(cd -P -- "$(dirname -- "$BASH_SOURCE")/.." && pwd -P)"}"
   PATH="$shome/bin:$shome/exec:$PATH"
 }
 
-profile
+_wtf_profile
